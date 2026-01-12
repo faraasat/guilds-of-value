@@ -1,17 +1,23 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract BountyEscrow is Ownable {
+contract BountyEscrow is Initializable, AccessControlUpgradeable, UUPSUpgradeable, ReentrancyGuardUpgradeable {
+    bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
+    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
+
     enum Status { Open, Assigned, Submitted, Completed, Cancelled }
 
     struct Bounty {
         uint256 id;
         address creator;
         string title;
-        string descriptionURI; // IPFS
+        string descriptionURI;
         uint256 amount;
         uint256 deadline;
         address assignedHunter;
@@ -29,15 +35,31 @@ contract BountyEscrow is Ownable {
     event WorkSubmitted(uint256 indexed bountyId, string submissionURI);
     event BountyCompleted(uint256 indexed bountyId, address indexed hunter, uint256 amount);
 
-    constructor(address _mneeToken) Ownable(msg.sender) {
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() {
+        _disableInitializers();
+    }
+
+    function initialize(address _mneeToken, address _admin) public initializer {
+        __AccessControl_init();
+        __UUPSUpgradeable_init();
+        __ReentrancyGuard_init();
+
+        _grantRole(DEFAULT_ADMIN_ROLE, _admin);
+        _grantRole(ADMIN_ROLE, _admin);
+        _grantRole(UPGRADER_ROLE, _admin);
+
         mneeToken = IERC20(_mneeToken);
         nextBountyId = 1;
     }
 
-    function createBounty(string memory _title, string memory _descriptionURI, uint256 _amount, uint256 _duration) external {
+    function _authorizeUpgrade(address newImplementation) internal override onlyRole(UPGRADER_ROLE) {}
+
+    function createBounty(string memory _title, string memory _descriptionURI, uint256 _amount, uint256 _duration) external nonReentrant {
         require(_amount > 0, "Amount must be > 0");
         
-        mneeToken.transferFrom(msg.sender, address(this), _amount);
+        bool success = mneeToken.transferFrom(msg.sender, address(this), _amount);
+        require(success, "Escrow deposit failed");
 
         bounties[nextBountyId] = Bounty({
             id: nextBountyId,
@@ -56,7 +78,7 @@ contract BountyEscrow is Ownable {
         nextBountyId++;
     }
 
-    function claimBounty(uint256 _bountyId) external {
+    function claimBounty(uint256 _bountyId) external nonReentrant {
         Bounty storage bounty = bounties[_bountyId];
         require(bounty.status == Status.Open, "Bounty not open");
         require(block.timestamp < bounty.deadline, "Bounty expired");
@@ -78,13 +100,14 @@ contract BountyEscrow is Ownable {
         emit WorkSubmitted(_bountyId, _submissionURI);
     }
 
-    function approveWork(uint256 _bountyId) external {
+    function approveWork(uint256 _bountyId) external nonReentrant {
         Bounty storage bounty = bounties[_bountyId];
         require(msg.sender == bounty.creator, "Only creator can approve");
         require(bounty.status == Status.Submitted, "Work not submitted");
 
         bounty.status = Status.Completed;
-        mneeToken.transfer(bounty.assignedHunter, bounty.amount);
+        bool success = mneeToken.transfer(bounty.assignedHunter, bounty.amount);
+        require(success, "Payout failed");
 
         emit BountyCompleted(_bountyId, bounty.assignedHunter, bounty.amount);
     }
