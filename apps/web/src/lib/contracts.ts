@@ -1,10 +1,10 @@
-export const MNEE_ADDRESS = "0x0165878a594ca255338adfa4d48449f69242eb8f";
+export const MNEE_ADDRESS = "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512";
 export const GUILD_REGISTRY_ADDRESS =
-  "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6";
+  "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9";
 export const BOUNTY_ESCROW_ADDRESS =
-  "0x610178da211fef7d417bc0e6fed39f05609ad788";
+  "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707";
 export const GUILD_GOVERNANCE_ADDRESS =
-  "0xa51c1fc2f0d1a1b8494ed1fe312d7c3a78ed91c0";
+  "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853";
 
 export const MNEE_ABI = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
@@ -33,6 +33,13 @@ export const MNEE_ABI = [
     name: "balanceOf",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "faucet",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
 ] as const;

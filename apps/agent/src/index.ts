@@ -11,9 +11,6 @@ import {
 import { privateKeyToAccount } from "viem/accounts";
 import { localhost } from "viem/chains";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { createHelia } from "helia";
-import { unixfs } from "@helia/unixfs";
-
 // Load from Root .env
 dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
@@ -80,7 +77,9 @@ async function runAgent() {
     console.warn("⚠️  GEMINI_API_KEY missing. Falling back to Mock responses.");
   }
 
-  // 1. Initialize Storage (Helia)
+  // 1. Initialize Storage (Helia) - DYNAMIC IMPORT
+  const { createHelia } = await import("helia");
+  const { unixfs } = await import("@helia/unixfs");
   const helia = await createHelia();
   const fs = unixfs(helia);
   console.log("📦 IPFS (Helia) Initialized.");

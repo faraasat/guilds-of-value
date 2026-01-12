@@ -13,9 +13,23 @@ async function main() {
 
   console.log(`Deploying contracts with account: ${deployer.account.address}`);
 
-  // 1. Deploy MNEE (Mock)
-  const mnee = await hre.viem.deployContract("MNEE", []);
-  console.log(`MNEE deployed to: ${mnee.address}`);
+  // 1. Deploy MNEE Implementation
+  const mneeImpl = await hre.viem.deployContract("MNEE", []);
+  console.log(`MNEE Implementation deployed to: ${mneeImpl.address}`);
+
+  // 1b. Deploy MNEE Proxy
+  const mneeInitData = encodeFunctionData({
+    abi: mneeImpl.abi,
+    functionName: "initialize",
+    args: [deployer.account.address],
+  });
+
+  const mneeProxy = await hre.viem.deployContract("UUPSProxy", [
+    mneeImpl.address,
+    mneeInitData,
+  ]);
+  const mnee = await hre.viem.getContractAt("MNEE", mneeProxy.address); // Use proxy as instance
+  console.log(`MNEE Proxy deployed to: ${mnee.address}`);
 
   // 2. Deploy GuildRegistry Implementation
   const guildRegistryImpl = await hre.viem.deployContract("GuildRegistry", []);

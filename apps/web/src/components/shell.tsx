@@ -21,7 +21,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
-  { label: "DASHBOARD", icon: LayoutDashboard, href: "/" },
+  { label: "DASHBOARD", icon: LayoutDashboard, href: "/dashboard" },
   { label: "MARKETPLACE", icon: Target, href: "/bounties" },
   { label: "GUILDS", icon: Users, href: "/guilds" },
   { label: "GOVERNANCE", icon: Shield, href: "/governance" },

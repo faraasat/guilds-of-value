@@ -18,19 +18,19 @@ export default createConfig({
     GuildRegistry: {
       network: "localhost",
       abi: GUILD_REGISTRY_ABI,
-      address: "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+      address: "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
       startBlock: 0,
     },
     BountyEscrow: {
       network: "localhost",
       abi: BOUNTY_ESCROW_ABI,
-      address: "0x610178da211fef7d417bc0e6fed39f05609ad788",
+      address: "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707",
       startBlock: 0,
     },
     GuildGovernance: {
       network: "localhost",
       abi: GUILD_GOVERNANCE_ABI,
-      address: "0xa51c1fc2f0d1a1b8494ed1fe312d7c3a78ed91c0",
+      address: "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
       startBlock: 0,
     },
   },
