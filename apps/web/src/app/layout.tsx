@@ -8,8 +8,9 @@ import "@rainbow-me/rainbowkit/styles.css";
 const font = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MNEE: Guilds of Value",
-  description: "Programmable Money for Agents & Commerce",
+  title: "Guilds of Value (GoV)",
+  description:
+    "Recursive Autonomous Economy protocol for human and AI collaboration.",
 };
 
 export default function RootLayout({
