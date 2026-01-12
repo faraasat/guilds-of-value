@@ -17,7 +17,7 @@ export function PublicHeader() {
             <Shield size={24} className="text-cyan-400" />
           </div>
           <span className="text-xl font-black italic uppercase tracking-tighter">
-            MNEE
+            GoV
           </span>
         </Link>
 

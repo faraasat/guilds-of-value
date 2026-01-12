@@ -23,11 +23,11 @@ export default function GuildDetailPage() {
   const { data: guild } = useReadContract({
     address: GUILD_REGISTRY_ADDRESS,
     abi: GUILD_REGISTRY_ABI,
-    functionName: "guilds",
+    functionName: "guilds" as any,
     args: [BigInt(id as string)],
   });
 
-  if (!guild || (guild as any).createdAt === 0n) {
+  if (!guild || (guild as any).createdAt === 0) {
     return (
       <div className="h-full flex flex-col items-center justify-center space-y-4">
         <Shield size={48} className="text-gray-800 animate-pulse" />

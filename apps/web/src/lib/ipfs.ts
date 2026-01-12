@@ -1,3 +1,5 @@
+"use client";
+
 let helia: any = null;
 let fs: any = null;
 
@@ -5,17 +7,25 @@ export async function getIPFS() {
   if (typeof window === "undefined") return null;
   if (helia) return { helia, fs };
 
-  const { createHelia } = await import("helia");
-  const { unixfs } = await import("@helia/unixfs");
+  try {
+    const { createHelia } = await import("helia");
+    const { unixfs } = await import("@helia/unixfs");
 
-  helia = await createHelia();
-  fs = unixfs(helia);
-  return { helia, fs };
+    helia = await createHelia();
+    fs = unixfs(helia);
+    return { helia, fs };
+  } catch (e) {
+    console.error("Failed to initialize Helia:", e);
+    return null;
+  }
 }
 
 export async function uploadToIPFS(content: string): Promise<string> {
   const ipfs = await getIPFS();
-  if (!ipfs) return "";
+  if (!ipfs) {
+    console.error("IPFS upload requested on server or initialization failed.");
+    return "";
+  }
 
   const { fs } = ipfs;
   const bytes = new TextEncoder().encode(content);
@@ -24,35 +34,45 @@ export async function uploadToIPFS(content: string): Promise<string> {
 }
 
 export async function fetchFromIPFS(uri: string): Promise<string> {
-  if (!uri.startsWith("ipfs://")) return uri;
+  if (!uri || !uri.startsWith("ipfs://")) return uri || "";
 
-  // Try to use a public gateway first for faster SSR and reliability
   const cid = uri.replace("ipfs://", "");
-  const gatewayUrl = `https://ipfs.io/ipfs/${cid}`;
 
+  // 1. Try public gateway first (works on server and client, much faster)
   try {
-    const response = await fetch(gatewayUrl);
+    const response = await fetch(`https://ipfs.io/ipfs/${cid}`);
     if (response.ok) {
       return await response.text();
     }
   } catch (e) {
-    console.warn("Gateway fetch failed, falling back to local Helia", e);
+    console.warn("Public IPFS gateway failed, falling back to local node...");
   }
+
+  // 2. Fallback to local Helia (client-only)
+  if (typeof window === "undefined") return "Uplink required...";
 
   const ipfs = await getIPFS();
-  if (!ipfs) return "IPFS Unavailable";
+  if (!ipfs) return "Network Error";
 
-  const { fs } = ipfs;
+  const { fs: heliaFs } = ipfs;
   const chunks = [];
-  for await (const chunk of fs.cat(cid)) {
-    chunks.push(chunk);
-  }
+  try {
+    for await (const chunk of heliaFs.cat(cid)) {
+      chunks.push(chunk);
+    }
 
-  // Using TextDecoder to handle potential Uint8Array chunks
-  const decoded = new TextDecoder().decode(
-    new Uint8Array(
-      chunks.reduce((acc, chunk) => [...acc, ...chunk], [] as number[]),
-    ),
-  );
-  return decoded;
+    // Efficiently combine chunks into a single Uint8Array
+    const totalLength = chunks.reduce((acc, chunk) => acc + chunk.length, 0);
+    const result = new Uint8Array(totalLength);
+    let offset = 0;
+    for (const chunk of chunks) {
+      result.set(chunk, offset);
+      offset += chunk.length;
+    }
+
+    return new TextDecoder().decode(result);
+  } catch (e) {
+    console.error("Helia fetch failed:", e);
+    return "Transmission Corrupted";
+  }
 }
