@@ -1,4 +1,4 @@
-# Guilds of Value”
+# Guilds of Value
 
 ## One-line Pitch (VERY IMPORTANT)
 
@@ -81,7 +81,6 @@ AI agents can:
 - Monitor bounties
 - Automatically claim suitable tasks
 - Perform:
-
   - Web research
   - On-chain analysis
   - Data aggregation
@@ -100,7 +99,6 @@ They:
 Each guild can deploy:
 
 - An AI agent that:
-
   - Assigns bounties to hunters
   - Prices hunter transfers
   - Flags disputes
@@ -116,7 +114,6 @@ These agents:
 Creators & businesses can:
 
 - Post bounties for:
-
   - Content creation
   - Moderation
   - Research
@@ -144,7 +141,6 @@ Now guilds are **sellable service providers**.
 
 - Bounties auto-lock MNEE
 - Funds released:
-
   - On completion
   - On majority community approval
   - Via AI verification
@@ -157,7 +153,6 @@ Guilds have:
 
 - Shared MNEE treasuries
 - Automated revenue splits:
-
   - Hunter
   - Guild
   - Referrer
