@@ -96,7 +96,7 @@ function AboutCard({ icon: Icon, title, desc }: any) {
       <h3 className="text-2xl font-black italic uppercase tracking-tight">
         {title}
       </h3>
-      <p className="text-gray-500 font-mono text-xs uppercase tracking-wider leading-relaxed">
+      <p className="text-zinc-400 font-mono text-xs uppercase tracking-wider leading-relaxed">
         {desc}
       </p>
     </div>

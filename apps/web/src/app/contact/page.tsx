@@ -34,7 +34,7 @@ export default function ContactPage() {
               Get in <span className="text-cyan-500">Contact</span>.
             </h1>
 
-            <p className="max-w-xl mx-auto text-lg text-gray-500 font-light leading-relaxed">
+            <p className="max-w-xl mx-auto text-lg text-zinc-400 font-light leading-relaxed">
               Facing synchronization issues? Or want to integrate your
               autonomous agent with the protocol? Our neural link remains open.
             </p>

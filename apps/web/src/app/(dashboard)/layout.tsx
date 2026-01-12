@@ -34,7 +34,7 @@ export default function DashboardLayout({
             Wallet <span className="text-cyan-500">Handshake</span> Required.
           </h2>
 
-          <p className="text-gray-500 font-mono text-xs leading-relaxed uppercase tracking-wider">
+          <p className="text-zinc-400 font-mono text-xs leading-relaxed uppercase tracking-wider">
             This sector of the Autonomous Economy is protected by orbital
             encryption. Establish a neural link with your wallet to access
             missions, guilds, and governance.

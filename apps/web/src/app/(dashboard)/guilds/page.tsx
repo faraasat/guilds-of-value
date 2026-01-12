@@ -77,13 +77,13 @@ export default function GuildsPage() {
           <h1 className="text-5xl font-black tracking-tighter mb-2 italic uppercase">
             Guild Codex
           </h1>
-          <p className="text-gray-500 font-mono text-sm max-w-md">
+          <p className="text-zinc-400 font-mono text-sm max-w-md">
             The central registry of economic coordination units. Join or form a
             guild to scale your impact.
           </p>
         </div>
         <div className="bg-zinc-900/50 border border-white/5 px-6 py-3 rounded-full backdrop-blur-xl">
-          <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mr-4">
+          <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mr-4">
             Total Registered
           </span>
           <span className="text-xl font-black text-cyan-500 italic">
@@ -109,7 +109,7 @@ export default function GuildsPage() {
 
             <div className="space-y-6">
               <div className="group">
-                <label className="block text-[10px] font-mono font-bold text-gray-500 mb-2 uppercase tracking-widest">
+                <label className="block text-[10px] font-mono font-bold text-zinc-400 mb-2 uppercase tracking-widest">
                   Guild Designation
                 </label>
                 <input
@@ -122,7 +122,7 @@ export default function GuildsPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-mono font-bold text-gray-500 mb-2 uppercase tracking-widest">
+                <label className="block text-[10px] font-mono font-bold text-zinc-400 mb-2 uppercase tracking-widest">
                   Foundation Stake (MNEE)
                 </label>
                 <div className="relative">
@@ -176,7 +176,7 @@ export default function GuildsPage() {
 
         {/* Guild Codex Feed */}
         <div className="xl:col-span-2 space-y-8">
-          <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest pl-2">
+          <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest pl-2">
             Authorized Guilds
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -218,7 +218,7 @@ function GuildCard({ guild }: any) {
           <h3 className="text-2xl font-black italic uppercase tracking-tight group-hover:text-purple-400 transition-colors">
             {guild.name}
           </h3>
-          <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mt-1">
+          <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mt-1">
             ID: #00{guild.id}
           </div>
         </div>

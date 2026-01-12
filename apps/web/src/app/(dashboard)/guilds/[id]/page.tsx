@@ -31,7 +31,7 @@ export default function GuildDetailPage() {
     return (
       <div className="h-full flex flex-col items-center justify-center space-y-4">
         <Shield size={48} className="text-gray-800 animate-pulse" />
-        <h1 className="text-xl font-mono text-gray-500 uppercase tracking-widest">
+        <h1 className="text-xl font-mono text-zinc-400 uppercase tracking-widest">
           Guild Record Not Found
         </h1>
         <Link
@@ -51,7 +51,7 @@ export default function GuildDetailPage() {
       {/* Breadcrumb */}
       <Link
         href="/guilds"
-        className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors group"
+        className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors group"
       >
         <ArrowLeft
           size={16}
@@ -78,18 +78,18 @@ export default function GuildDetailPage() {
               </span>
             </div>
             <div className="flex items-center gap-6 mt-2">
-              <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest flex items-center gap-2">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest flex items-center gap-2">
                 <Shield size={12} className="text-purple-500" /> Master:{" "}
                 {g.master.slice(0, 6)}...{g.master.slice(-4)}
               </span>
-              <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest flex items-center gap-2">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest flex items-center gap-2">
                 <Target size={12} className="text-purple-500" /> Member Count: 1
               </span>
             </div>
           </div>
         </div>
         <div className="text-right">
-          <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-1 italic">
+          <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-1 italic">
             Guild Stake
           </div>
           <div className="text-4xl font-black italic tracking-tighter text-white">
@@ -104,7 +104,7 @@ export default function GuildDetailPage() {
         <div className="lg:col-span-2 space-y-12">
           <div className="bg-zinc-900/20 border border-white/5 p-10 rounded-[40px] backdrop-blur-3xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 blur-[100px] pointer-events-none" />
-            <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest mb-8 flex items-center gap-2">
+            <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest mb-8 flex items-center gap-2">
               <Activity size={14} className="text-cyan-500" /> Mission
               Directives
             </h2>
@@ -122,7 +122,7 @@ export default function GuildDetailPage() {
 
           {/* Member List placeholder */}
           <div className="space-y-6">
-            <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest pl-2 flex items-center gap-2">
+            <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest pl-2 flex items-center gap-2">
               <Users size={12} /> Active Stakeholders
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -152,7 +152,7 @@ export default function GuildDetailPage() {
             </div>
             <div className="space-y-6">
               <div>
-                <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-2">
+                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-2">
                   Primary Reserve
                 </div>
                 <div className="flex items-end gap-2">
@@ -165,7 +165,7 @@ export default function GuildDetailPage() {
                 </div>
               </div>
               <div>
-                <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-2">
+                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest mb-2">
                   Governance Yield
                 </div>
                 <div className="flex items-end gap-2">

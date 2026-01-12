@@ -19,7 +19,7 @@ import { mainnet, sepolia, hardhat } from "wagmi/chains";
 const { wallets } = getDefaultWallets();
 
 const config = getDefaultConfig({
-  appName: "MNEE Hackathon",
+  appName: "Guilds of Value (GoV)",
   projectId: "YOUR_PROJECT_ID", // TODO: Move to env
   chains: [hardhat, sepolia, mainnet],
   ssr: true,

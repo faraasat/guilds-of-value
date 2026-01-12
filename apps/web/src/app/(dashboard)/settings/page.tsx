@@ -26,7 +26,7 @@ export default function SettingsPage() {
         <h1 className="text-4xl font-black tracking-tighter italic uppercase mb-2">
           Systems Configuration
         </h1>
-        <p className="text-gray-500 font-mono text-sm uppercase tracking-widest">
+        <p className="text-zinc-400 font-mono text-sm uppercase tracking-widest">
           Adjust your orbital parameters and neural link settings.
         </p>
       </div>
@@ -34,7 +34,7 @@ export default function SettingsPage() {
       <div className="grid grid-cols-1 gap-8">
         {/* Profile Settings */}
         <section className="space-y-6">
-          <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest pl-2 flex items-center gap-2">
+          <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest pl-2 flex items-center gap-2">
             <Settings size={12} /> User Profile Override
           </h2>
           <div className="bg-zinc-900/20 border border-white/5 p-8 rounded-[32px] backdrop-blur-xl space-y-6">
@@ -69,7 +69,7 @@ export default function SettingsPage() {
         {/* System Toggles */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <section className="space-y-6">
-            <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest pl-2 flex items-center gap-2">
+            <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest pl-2 flex items-center gap-2">
               <Bell size={12} /> Comms Array
             </h2>
             <div className="bg-zinc-900/20 border border-white/5 p-8 rounded-[32px] backdrop-blur-xl space-y-4">
@@ -89,7 +89,7 @@ export default function SettingsPage() {
           </section>
 
           <section className="space-y-6">
-            <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest pl-2 flex items-center gap-2">
+            <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest pl-2 flex items-center gap-2">
               <Share2 size={12} /> Neural Links
             </h2>
             <div className="bg-zinc-900/20 border border-white/5 p-8 rounded-[32px] backdrop-blur-xl space-y-3">
@@ -114,7 +114,7 @@ export default function SettingsPage() {
 
         {/* Hardware Status */}
         <section className="space-y-6">
-          <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest pl-2 flex items-center gap-2">
+          <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest pl-2 flex items-center gap-2">
             <Cpu size={12} /> Hardware Diagnostics
           </h2>
           <div className="bg-zinc-900/20 border border-white/5 p-8 rounded-[32px] backdrop-blur-xl">
@@ -150,7 +150,7 @@ function Toggle({ label, description, enabled, onChange }: any) {
         <div className="text-sm font-bold uppercase tracking-tight mb-1">
           {label}
         </div>
-        <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest leading-relaxed">
+        <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest leading-relaxed">
           {description}
         </div>
       </div>
@@ -176,7 +176,7 @@ function SocialBtn({ icon: Icon, label, handle }: any) {
       <div className="flex items-center gap-3">
         <Icon
           size={18}
-          className="text-gray-500 group-hover:text-cyan-400 transition-colors"
+          className="text-zinc-400 group-hover:text-cyan-400 transition-colors"
         />
         <span className="text-xs font-mono font-bold text-gray-400 uppercase tracking-widest">
           {label}

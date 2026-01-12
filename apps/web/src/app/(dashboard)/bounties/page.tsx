@@ -93,7 +93,7 @@ export default function BountiesPage() {
           <h1 className="text-5xl font-black tracking-tighter mb-2 italic uppercase">
             Mission Hub
           </h1>
-          <p className="text-gray-500 font-mono text-sm max-w-md">
+          <p className="text-zinc-400 font-mono text-sm max-w-md">
             Browse and deploy autonomous agents for orbital tasks. All rewards
             verifiable on-chain.
           </p>
@@ -107,7 +107,7 @@ export default function BountiesPage() {
                 "px-6 py-2 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase transition-all",
                 activeTab === tab
                   ? "bg-cyan-500 text-black shadow-[0_0_15px_rgba(34,211,238,0.4)]"
-                  : "text-gray-500 hover:text-white",
+                  : "text-zinc-400 hover:text-white",
               )}
             >
               {tab}
@@ -131,7 +131,7 @@ export default function BountiesPage() {
 
             <div className="space-y-6">
               <div className="group">
-                <label className="block text-[10px] font-mono font-bold text-gray-500 mb-2 uppercase tracking-widest">
+                <label className="block text-[10px] font-mono font-bold text-zinc-400 mb-2 uppercase tracking-widest">
                   Mission Objective
                 </label>
                 <input
@@ -144,7 +144,7 @@ export default function BountiesPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-mono font-bold text-gray-500 mb-2 uppercase tracking-widest">
+                <label className="block text-[10px] font-mono font-bold text-zinc-400 mb-2 uppercase tracking-widest">
                   Protocol Briefing
                 </label>
                 <textarea
@@ -156,7 +156,7 @@ export default function BountiesPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-mono font-bold text-gray-500 mb-2 uppercase tracking-widest">
+                <label className="block text-[10px] font-mono font-bold text-zinc-400 mb-2 uppercase tracking-widest">
                   Reward Allocation (MNEE)
                 </label>
                 <div className="relative">
@@ -213,7 +213,7 @@ export default function BountiesPage() {
         {/* Bounty Feed */}
         <div className="xl:col-span-2">
           <div className="space-y-6">
-            <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest pl-2">
+            <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest pl-2">
               Available Missions
             </h2>
             <div className="grid grid-cols-1 gap-6">
@@ -313,12 +313,12 @@ function BountyItem({
               {data.title}
             </h3>
             <div className="flex items-center gap-4 mt-2">
-              <span className="flex items-center gap-1 text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+              <span className="flex items-center gap-1 text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
                 <Shield size={10} className="text-cyan-500" />{" "}
                 {data.creator.slice(0, 6)}...{data.creator.slice(-4)}
               </span>
               <span className="w-1 h-1 rounded-full bg-gray-800" />
-              <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
                 Protocol V2.1
               </span>
             </div>
@@ -330,7 +330,7 @@ function BountyItem({
             data.status === 2
               ? "bg-cyan-500 text-black animate-pulse"
               : data.status === 3
-                ? "bg-white/5 text-gray-500"
+                ? "bg-white/5 text-zinc-400"
                 : "bg-green-500/10 text-green-400 border border-green-500/20",
           )}
         >
@@ -340,7 +340,7 @@ function BountyItem({
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-black/40 p-6 rounded-2xl border border-white/5 relative">
-          <div className="flex items-center gap-2 mb-4 text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+          <div className="flex items-center gap-2 mb-4 text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
             <Search size={12} className="text-cyan-500" /> Transmission Payload
           </div>
           <p className="text-sm text-gray-400 leading-relaxed font-sans">

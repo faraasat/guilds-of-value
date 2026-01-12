@@ -20,7 +20,7 @@ export default function ProfilePage() {
     return (
       <div className="h-full flex flex-col items-center justify-center space-y-4">
         <Globe size={48} className="text-gray-700 animate-pulse" />
-        <h1 className="text-xl font-mono text-gray-500 uppercase tracking-widest">
+        <h1 className="text-xl font-mono text-zinc-400 uppercase tracking-widest">
           Connect Wallet to Access Dossier
         </h1>
       </div>
@@ -54,7 +54,7 @@ export default function ProfilePage() {
                 Verified Hunter
               </span>
             </div>
-            <p className="text-gray-500 font-mono text-sm uppercase tracking-widest flex items-center gap-2">
+            <p className="text-zinc-400 font-mono text-sm uppercase tracking-widest flex items-center gap-2">
               <Globe size={14} /> Global Registry ID: {address}
             </p>
           </div>
@@ -100,7 +100,7 @@ export default function ProfilePage() {
       {/* Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2 space-y-6">
-          <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest pl-2 flex items-center gap-2">
+          <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest pl-2 flex items-center gap-2">
             <Activity size={12} /> Operational History
           </h2>
           <div className="space-y-4">
@@ -126,17 +126,17 @@ export default function ProfilePage() {
         </div>
 
         <div className="space-y-6">
-          <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest pl-2">
+          <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest pl-2">
             Security Clearance
           </h2>
           <div className="bg-zinc-900/20 border border-white/5 p-6 rounded-[32px] backdrop-blur-xl">
             <div className="space-y-4">
               <div className="flex justify-between items-center text-xs font-mono">
-                <span className="text-gray-500 italic">Auth Level</span>
+                <span className="text-zinc-400 italic">Auth Level</span>
                 <span className="text-white">Tier 1 Alpha</span>
               </div>
               <div className="flex justify-between items-center text-xs font-mono">
-                <span className="text-gray-500 italic">Enclave Key</span>
+                <span className="text-zinc-400 italic">Enclave Key</span>
                 <span className="text-cyan-500">ECDSA-Valid</span>
               </div>
               <div className="h-[1px] bg-white/5" />
@@ -167,7 +167,7 @@ function StatCard({ label, value, unit, icon: Icon, color }: any) {
         {value}
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[10px] font-mono text-gray-500 font-bold uppercase tracking-widest">
+        <span className="text-[10px] font-mono text-zinc-400 font-bold uppercase tracking-widest">
           {label}
         </span>
         <span className="px-1.5 py-0.5 bg-white/5 rounded text-[8px] font-mono text-gray-600 font-bold">
@@ -198,7 +198,7 @@ function ActivityItem({ title, status, reward, date }: any) {
         <div className="text-xs font-mono font-bold text-cyan-400 mb-1">
           {reward}
         </div>
-        <div className="text-[8px] font-mono text-gray-500 uppercase tracking-widest">
+        <div className="text-[8px] font-mono text-zinc-400 uppercase tracking-widest">
           {status}
         </div>
       </div>

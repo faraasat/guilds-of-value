@@ -25,7 +25,7 @@ export default function DashboardPage() {
           <h1 className="text-5xl font-black tracking-tighter mb-2 italic uppercase">
             Mission Dashboard
           </h1>
-          <p className="text-gray-500 font-mono text-xs uppercase tracking-widest">
+          <p className="text-zinc-400 font-mono text-xs uppercase tracking-widest">
             Orbital Sector 7 • Real-time Protocol Synchronization
           </p>
         </div>
@@ -50,7 +50,7 @@ export default function DashboardPage() {
           <div className="absolute -inset-10 bg-gradient-to-br from-cyan-500/10 to-transparent blur-[100px] pointer-events-none" />
 
           <div className="flex justify-between items-end px-4 relative z-10">
-            <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
+            <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-2">
               <Zap size={12} className="text-cyan-500" /> Recent Transmissions
             </h2>
             <span className="text-[8px] font-mono text-gray-700 uppercase">
@@ -101,7 +101,7 @@ export default function DashboardPage() {
           <div className="absolute -inset-10 bg-gradient-to-br from-purple-500/10 to-transparent blur-[100px] pointer-events-none" />
 
           <div className="flex justify-between items-end px-4 relative z-10">
-            <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
+            <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-2">
               <Users size={12} className="text-purple-500" /> Guild
               Registrations
             </h2>

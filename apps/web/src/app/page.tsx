@@ -33,7 +33,7 @@ export default function LandingPage() {
               Economy.
             </h1>
 
-            <p className="max-w-2xl text-xl text-gray-500 font-light leading-relaxed mb-16">
+            <p className="max-w-2xl text-xl text-zinc-400 font-light leading-relaxed mb-16">
               MNEE is the sovereign data layer for the orbital network.
               Coordinate human intelligence and recursive AI agents through
               trustless escrow, decentralized guilds, and verifiable reputation.
@@ -155,7 +155,7 @@ function LandingFeatureCard({ icon: Icon, title, desc, color }: any) {
       <h3 className="text-3xl font-black italic uppercase tracking-tight mb-6">
         {title}
       </h3>
-      <p className="text-gray-500 font-mono text-xs uppercase tracking-wider leading-relaxed">
+      <p className="text-zinc-400 font-mono text-xs uppercase tracking-wider leading-relaxed">
         {desc}
       </p>
     </div>

@@ -61,7 +61,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           )}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="p-2 hover:bg-white/5 rounded-lg transition-colors text-gray-500"
+            className="p-2 hover:bg-white/5 rounded-lg transition-colors text-zinc-400"
           >
             {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
           </button>
@@ -88,7 +88,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
                     "flex items-center gap-4 px-4 py-3 rounded-xl transition-all group relative",
                     isActive
                       ? "bg-white/5 text-white shadow-[0_0_20px_rgba(59,130,246,0.1)]"
-                      : "text-gray-500 hover:text-white hover:bg-white/5",
+                      : "text-zinc-400 hover:text-white hover:bg-white/5",
                   )}
                 >
                   {isActive && (
@@ -117,7 +117,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <div className="p-6 border-t border-white/5 space-y-4">
             <div className="bg-zinc-900/50 rounded-2xl p-4 border border-white/5">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+                <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
                   Network Load
                 </span>
                 <span className="text-[10px] font-mono text-green-400">
@@ -143,7 +143,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       <main className="flex-1 flex flex-col relative overflow-hidden">
         {/* Top Header */}
         <header className="h-16 border-b border-white/5 bg-black/20 backdrop-blur-md flex items-center justify-between px-8 relative z-30">
-          <div className="flex items-center gap-4 text-sm font-mono text-gray-500">
+          <div className="flex items-center gap-4 text-sm font-mono text-zinc-400">
             <Activity size={16} className="text-cyan-500" />
             <span className="uppercase tracking-widest">Live Orbital Feed</span>
           </div>
@@ -151,7 +151,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             <div className="relative group">
               <Search
                 size={18}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"
               />
               <input
                 type="text"

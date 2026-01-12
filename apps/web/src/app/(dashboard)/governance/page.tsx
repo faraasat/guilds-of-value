@@ -58,7 +58,7 @@ export default function GovernancePage() {
           <h1 className="text-5xl font-black tracking-tighter mb-2 italic uppercase">
             Governance Hub
           </h1>
-          <p className="text-gray-500 font-mono text-sm max-w-md">
+          <p className="text-zinc-400 font-mono text-sm max-w-md">
             The Supreme Court of the Autonomous Economy. Guild Masters
             adjudicate disputes and coordinate protocol upgrades.
           </p>
@@ -72,7 +72,7 @@ export default function GovernancePage() {
                 "px-6 py-2 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase transition-all",
                 activeTab === tab
                   ? "bg-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)]"
-                  : "text-gray-500 hover:text-white",
+                  : "text-zinc-400 hover:text-white",
               )}
             >
               {tab}
@@ -96,13 +96,13 @@ export default function GovernancePage() {
             </div>
             <div className="space-y-4">
               <div className="flex justify-between items-center text-xs font-mono">
-                <span className="text-gray-500 uppercase tracking-widest">
+                <span className="text-zinc-400 uppercase tracking-widest">
                   Active Masters
                 </span>
                 <span className="text-white">12 Units</span>
               </div>
               <div className="flex justify-between items-center text-xs font-mono">
-                <span className="text-gray-500 uppercase tracking-widest">
+                <span className="text-zinc-400 uppercase tracking-widest">
                   Quorum Floor
                 </span>
                 <span className="text-white">51%</span>
@@ -133,38 +133,41 @@ export default function GovernancePage() {
 
         {/* Dispute Feed */}
         <div className="xl:col-span-2 space-y-6">
-          <h2 className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest pl-2 flex items-center gap-2">
+          <h2 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest pl-2 flex items-center gap-2">
             <AlertCircle size={12} /> Pending Adjudication
           </h2>
           <div className="space-y-4">
-          <div className="space-y-4">
-            {isIndexerLoading ? (
-              <div className="p-12 text-center bg-zinc-900/10 border border-dashed border-white/5 rounded-3xl animate-pulse">
-                <p className="text-[10px] font-mono text-gray-600 uppercase tracking-widest">
-                  Decrypting Adjudication Records...
-                </p>
-              </div>
-            ) : filteredDisputes.length > 0 ? (
-              filteredDisputes.map((d: any) => (
-                <DisputeCard 
-                  key={d.id} 
-                  dispute={d} 
-                  onVote={(support: boolean) => writeVote({
-                    address: GUILD_GOVERNANCE_ADDRESS,
-                    abi: GUILD_GOVERNANCE_ABI,
-                    functionName: "vote",
-                    args: [BigInt(d.id), support],
-                  })}
-                  isVoting={isVotingConfirming}
-                />
-              ))
-            ) : (
-              <div className="p-12 text-center bg-zinc-900/10 border border-dashed border-white/5 rounded-3xl">
-                <p className="text-[10px] font-mono text-gray-600 uppercase tracking-widest">
-                  No active disputes in the sector.
-                </p>
-              </div>
-            )}
+            <div className="space-y-4">
+              {isIndexerLoading ? (
+                <div className="p-12 text-center bg-zinc-900/10 border border-dashed border-white/5 rounded-3xl animate-pulse">
+                  <p className="text-[10px] font-mono text-gray-600 uppercase tracking-widest">
+                    Decrypting Adjudication Records...
+                  </p>
+                </div>
+              ) : filteredDisputes.length > 0 ? (
+                filteredDisputes.map((d: any) => (
+                  <DisputeCard
+                    key={d.id}
+                    dispute={d}
+                    onVote={(support: boolean) =>
+                      writeVote({
+                        address: GUILD_GOVERNANCE_ADDRESS,
+                        abi: GUILD_GOVERNANCE_ABI,
+                        functionName: "vote",
+                        args: [BigInt(d.id), support],
+                      })
+                    }
+                    isVoting={isVotingConfirming}
+                  />
+                ))
+              ) : (
+                <div className="p-12 text-center bg-zinc-900/10 border border-dashed border-white/5 rounded-3xl">
+                  <p className="text-[10px] font-mono text-gray-600 uppercase tracking-widest">
+                    No active disputes in the sector.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -172,7 +175,15 @@ export default function GovernancePage() {
   );
 }
 
-function DisputeCard({ dispute, onVote, isVoting }: { dispute: any; onVote: (s: boolean) => void; isVoting: boolean }) {
+function DisputeCard({
+  dispute,
+  onVote,
+  isVoting,
+}: {
+  dispute: any;
+  onVote: (s: boolean) => void;
+  isVoting: boolean;
+}) {
   const resolved = dispute.resolved;
   const votesFor = Number(dispute.votesFor || 0);
   const votesAgainst = Number(dispute.votesAgainst || 0);
@@ -193,7 +204,9 @@ function DisputeCard({ dispute, onVote, isVoting }: { dispute: any; onVote: (s: 
           <div
             className={cn(
               "p-3 rounded-2xl",
-              !resolved ? "bg-purple-500/10 text-purple-400" : "bg-green-500/10 text-green-400",
+              !resolved
+                ? "bg-purple-500/10 text-purple-400"
+                : "bg-green-500/10 text-green-400",
             )}
           >
             <Shield size={24} />
@@ -203,17 +216,18 @@ function DisputeCard({ dispute, onVote, isVoting }: { dispute: any; onVote: (s: 
               Bounty Dispute Case
             </h3>
             <div className="flex items-center gap-3 mt-1">
-              <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
                 UID: #{dispute.id}
               </span>
-              <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
-                Raiser: {dispute.raiser.slice(0, 6)}...{dispute.raiser.slice(-4)}
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
+                Raiser: {dispute.raiser.slice(0, 6)}...
+                {dispute.raiser.slice(-4)}
               </span>
             </div>
           </div>
         </div>
         <div className="text-right">
-          <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+          <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
             {resolved ? "RESOLVED" : "VOTING ACTIVE"}
           </div>
         </div>
@@ -229,13 +243,17 @@ function DisputeCard({ dispute, onVote, isVoting }: { dispute: any; onVote: (s: 
               <div
                 className="h-full bg-cyan-500"
                 style={{
-                  width: totalVotes > 0 ? `${(votesFor / totalVotes) * 100}%` : "0%",
+                  width:
+                    totalVotes > 0 ? `${(votesFor / totalVotes) * 100}%` : "0%",
                 }}
               />
               <div
                 className="h-full bg-red-500"
                 style={{
-                  width: totalVotes > 0 ? `${(votesAgainst / totalVotes) * 100}%` : "0%",
+                  width:
+                    totalVotes > 0
+                      ? `${(votesAgainst / totalVotes) * 100}%`
+                      : "0%",
                 }}
               />
             </div>
@@ -247,14 +265,14 @@ function DisputeCard({ dispute, onVote, isVoting }: { dispute: any; onVote: (s: 
         <div className="flex items-center justify-end gap-3 font-mono text-[10px] uppercase">
           {!resolved ? (
             <>
-              <button 
+              <button
                 onClick={() => onVote(true)}
                 disabled={isVoting}
                 className="px-6 py-3 rounded-xl bg-cyan-500 text-black font-bold shadow-[0_4px_15px_rgba(34,211,238,0.2)] hover:bg-cyan-400 transition-all disabled:opacity-50"
               >
                 Support Payout
               </button>
-              <button 
+              <button
                 onClick={() => onVote(false)}
                 disabled={isVoting}
                 className="px-6 py-3 rounded-xl bg-zinc-800 text-white font-bold border border-white/5 hover:bg-zinc-700 transition-all disabled:opacity-50"
