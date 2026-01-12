@@ -16,5 +16,5 @@
     "prettier": "latest",
     "turbo": "latest"
   },
-  "packageManager": "yarn@4.0.0"
+  "packageManager": "yarn@3.6.4"
 }
