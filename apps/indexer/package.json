@@ -1,0 +1,19 @@
+{
+  "name": "indexer",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "ponder dev",
+    "start": "ponder start",
+    "codegen": "ponder codegen",
+    "serve": "ponder serve"
+  },
+  "dependencies": {
+    "@ponder/core": "latest",
+    "hono": "^4.11.3",
+    "viem": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5"
+  }
+}

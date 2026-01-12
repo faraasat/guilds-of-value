@@ -9,9 +9,21 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@helia/unixfs": "^6.0.4",
+    "@rainbow-me/rainbowkit": "^2.2.10",
+    "@tanstack/react-query": "^5.90.16",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.25.0",
+    "graphql": "^16.12.0",
+    "graphql-request": "^7.4.0",
+    "helia": "^6.0.14",
+    "lucide-react": "^0.562.0",
     "next": "16.1.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "tailwind-merge": "^3.4.0",
+    "viem": "^2.44.1",
+    "wagmi": "^3.3.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

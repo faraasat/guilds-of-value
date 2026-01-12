@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "Programmable Money for Agents & Commerce",
 };
 
+import { Shell } from "@/components/shell";
+
 export default function RootLayout({
   children,
 }: {
@@ -25,7 +27,9 @@ export default function RootLayout({
           "min-h-screen bg-black text-white antialiased selection:bg-cyan-500 selection:text-black",
         )}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <Shell>{children}</Shell>
+        </Providers>
       </body>
     </html>
   );

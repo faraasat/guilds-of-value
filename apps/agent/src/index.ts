@@ -1,22 +1,27 @@
 import dotenv from "dotenv";
+import path from "path";
 import {
   createPublicClient,
   createWalletClient,
   http,
   parseAbiItem,
-  PublicClient,
-  WalletClient,
   getContract,
   Address,
 } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
-import { mainnet, localhost } from "viem/chains";
+import { localhost } from "viem/chains";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { createHelia } from "helia";
+import { unixfs } from "@helia/unixfs";
 
-dotenv.config();
+// Load from Root .env
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 const RPC_URL = process.env.RPC_URL || "http://127.0.0.1:8545";
 const PRIVATE_KEY = process.env.AGENT_PRIVATE_KEY as `0x${string}`;
-const BOUNTY_ESCROW_ADDRESS = process.env.BOUNTY_ESCROW_ADDRESS as Address;
+const BOUNTY_ESCROW_ADDRESS = process.env
+  .NEXT_PUBLIC_BOUNTY_ESCROW_ADDRESS as Address;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 const BOUNTY_ESCROW_ABI = [
   {
@@ -46,18 +51,50 @@ const BOUNTY_ESCROW_ABI = [
     stateMutability: "nonpayable",
     type: "function",
   },
+  {
+    inputs: [{ name: "_bountyId", type: "uint256" }],
+    name: "bounties",
+    outputs: [
+      { name: "id", type: "uint256" },
+      { name: "creator", type: "address" },
+      { name: "title", type: "string" },
+      { name: "descriptionURI", type: "string" },
+      { name: "amount", type: "uint256" },
+      { name: "deadline", type: "uint256" },
+      { name: "assignedHunter", type: "address" },
+      { name: "submissionURI", type: "string" },
+      { name: "status", type: "uint8" },
+      { name: "createdAt", type: "uint256" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
 ] as const;
 
 async function runAgent() {
-  console.log("AI Agent Service Starting...");
+  console.log("-----------------------------------------");
+  console.log("🚀 PRODUCTION AI AGENT STARTING...");
   console.log(`Watching Escrow at: ${BOUNTY_ESCROW_ADDRESS}`);
 
+  if (!GEMINI_API_KEY) {
+    console.warn("⚠️  GEMINI_API_KEY missing. Falling back to Mock responses.");
+  }
+
+  // 1. Initialize Storage (Helia)
+  const helia = await createHelia();
+  const fs = unixfs(helia);
+  console.log("📦 IPFS (Helia) Initialized.");
+
+  // 2. Initialize AI (Gemini)
+  const genAI = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
+  const model = genAI?.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  // 3. Initialize Blockchain
   const account = privateKeyToAccount(PRIVATE_KEY);
   const publicClient = createPublicClient({
     chain: localhost,
     transport: http(RPC_URL),
   });
-
   const walletClient = createWalletClient({
     account,
     chain: localhost,
@@ -70,9 +107,9 @@ async function runAgent() {
     client: { public: publicClient, wallet: walletClient },
   });
 
-  console.log(`Agent initialized with address: ${account.address}`);
+  console.log(`🤖 Agent Identity: ${account.address}`);
+  console.log("-----------------------------------------");
 
-  // Watch for BountyCreated events
   publicClient.watchEvent({
     address: BOUNTY_ESCROW_ADDRESS,
     event: parseAbiItem(
@@ -80,42 +117,69 @@ async function runAgent() {
     ),
     onLogs: async (logs) => {
       for (const log of logs) {
-        const { bountyId, creator, amount } = log.args;
-        console.log(
-          `\n[NEW BOUNTY] ID: ${bountyId}, Creator: ${creator}, Reward: ${amount}`,
-        );
+        const { bountyId } = log.args;
 
-        if (creator?.toLowerCase() === account.address.toLowerCase()) {
-          console.log("Skipping own bounty.");
-          continue;
-        }
+        // Fetch full bounty details
+        const bountyData = await contract.read.bounties([bountyId!]);
+        const [id, creator, title, descriptionURI] = bountyData as any;
+
+        console.log(`\n[NEW BOUNTY detected] #${id}: ${title}`);
+
+        if (creator.toLowerCase() === account.address.toLowerCase()) continue;
 
         try {
-          console.log(`Claiming bounty ${bountyId}...`);
-          const claimTx = await contract.write.claimBounty([bountyId!]);
-          console.log(`Claimed! TX: ${claimTx}`);
+          // Step 1: Claim
+          console.log("  -> Claiming bounty...");
+          await contract.write.claimBounty([bountyId!]);
 
-          // Simulate AI Work
-          console.log("Generating AI solution...");
-          await new Promise((r) => setTimeout(r, 2000)); // Simulate delay
+          // Step 2: Resolve Description (IPFS or Literal)
+          let description = descriptionURI;
+          if (descriptionURI.startsWith("ipfs://")) {
+            const cid = descriptionURI.replace("ipfs://", "");
+            console.log(`  -> Fetching payload from IPFS (CID: ${cid})...`);
+            const chunks = [];
+            for await (const chunk of fs.cat(cid as any)) {
+              chunks.push(chunk);
+            }
+            description = new TextDecoder().decode(Buffer.concat(chunks));
+          }
 
-          const submission = `AI AGENT SOLUTION: This is an automated response for bounty #${bountyId}. The task has been processed and verified by the Guilds of Value AI Network. [Timestamp: ${new Date().toISOString()}]`;
+          // Step 3: Generate Solution (Gemini)
+          console.log("  -> Consulting Gemini AI...");
+          let resultText = "";
+          if (model) {
+            const prompt = `You are a professional bounty hunter in the "Guilds of Value" network. 
+                        Task Title: ${title}
+                        Task Description: ${description}
+                        
+                        Please provide a comprehensive, technical, and verifiable solution or response to this task.
+                        Format it professionally.`;
 
-          console.log(`Submitting work for bounty ${bountyId}...`);
-          const submitTx = await contract.write.submitWork([
-            bountyId!,
-            submission,
-          ]);
-          console.log(`Work submitted! TX: ${submitTx}`);
-          console.log(`-----------------------------------------`);
+            const result = await model.generateContent(prompt);
+            resultText = result.response.text();
+          } else {
+            resultText = "[MOCK] AI solution for: " + description;
+          }
+
+          // Step 4: Upload Result to IPFS
+          console.log("  -> Uploading solution to IPFS...");
+          const content = new TextEncoder().encode(resultText);
+          const cid = await fs.addBytes(content);
+          const submissionURI = `ipfs://${cid}`;
+          console.log(`  -> Solution verifiable at: ${submissionURI}`);
+
+          // Step 5: Submit Work
+          console.log("  -> Submitting work to blockchain...");
+          await contract.write.submitWork([bountyId!, submissionURI]);
+          console.log(`✅ Bounty #${id} processed!`);
         } catch (error) {
-          console.error(`Failed to process bounty ${bountyId}:`, error);
+          console.error(`❌ Error processing bounty #${bountyId}:`, error);
         }
       }
     },
   });
 
-  console.log("Waiting for new bounties...");
+  console.log("📡 Listening for orbital signals (Bounty Events)...");
 }
 
 runAgent().catch(console.error);

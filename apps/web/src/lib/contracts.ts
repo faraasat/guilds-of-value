@@ -1,8 +1,10 @@
-export const MNEE_ADDRESS = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
+export const MNEE_ADDRESS = "0x0165878a594ca255338adfa4d48449f69242eb8f";
 export const GUILD_REGISTRY_ADDRESS =
-  "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0";
+  "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6";
 export const BOUNTY_ESCROW_ADDRESS =
-  "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9";
+  "0x610178da211fef7d417bc0e6fed39f05609ad788";
+export const GUILD_GOVERNANCE_ADDRESS =
+  "0xa51c1fc2f0d1a1b8494ed1fe312d7c3a78ed91c0";
 
 export const MNEE_ABI = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
@@ -262,6 +264,36 @@ export const BOUNTY_ESCROW_ABI = [
     name: "nextBountyId",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
+    type: "function",
+  },
+] as const;
+
+export const GUILD_GOVERNANCE_ABI = [
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, name: "bountyId", type: "uint256" },
+      { indexed: true, name: "guildId", type: "uint256" },
+      { indexed: false, name: "support", type: "bool" },
+    ],
+    name: "VoteCast",
+    type: "event",
+  },
+  {
+    inputs: [{ name: "_bountyId", type: "uint256" }],
+    name: "raiseDispute",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { name: "_bountyId", type: "uint256" },
+      { name: "_support", type: "bool" },
+    ],
+    name: "vote",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
 ] as const;

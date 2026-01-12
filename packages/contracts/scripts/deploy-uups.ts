@@ -57,16 +57,38 @@ async function main() {
   ]);
   console.log(`BountyEscrow Proxy deployed to: ${bountyEscrowProxy.address}`);
 
-  // Verification (Optional - Local)
-  // We can treat the Proxy address as the Contract interface to interact
+  // 6. Deploy GuildGovernance Implementation
+  const guildGovernanceImpl = await hre.viem.deployContract(
+    "GuildGovernance",
+    [],
+  );
+  console.log(
+    `GuildGovernance Implementation deployed to: ${guildGovernanceImpl.address}`,
+  );
+
+  // 7. Deploy GuildGovernance Proxy
+  const guildGovernanceInitData = encodeFunctionData({
+    abi: guildGovernanceImpl.abi,
+    functionName: "initialize",
+    args: [
+      guildRegistryProxy.address,
+      bountyEscrowProxy.address,
+      deployer.account.address,
+    ],
+  });
+
+  const guildGovernanceProxy = await hre.viem.deployContract("UUPSProxy", [
+    guildGovernanceImpl.address,
+    guildGovernanceInitData,
+  ]);
+  console.log(
+    `GuildGovernance Proxy deployed to: ${guildGovernanceProxy.address}`,
+  );
+
+  // Verification
   const guildRegistry = await hre.viem.getContractAt(
     "GuildRegistry",
     guildRegistryProxy.address,
-  );
-
-  const bountyEscrow = await hre.viem.getContractAt(
-    "BountyEscrow",
-    bountyEscrowProxy.address,
   );
 
   console.log("----------------------------------------------------");
@@ -80,10 +102,17 @@ async function main() {
 
   console.log("----------------------------------------------------");
   console.log("Deployment Complete!");
-  console.log(`NEXT STEP: Update 'apps/web/src/lib/contracts.ts' with:`);
-  console.log(`MNEE: "${mnee.address}"`);
-  console.log(`GuildRegistry (Proxy): "${guildRegistryProxy.address}"`);
-  console.log(`BountyEscrow (Proxy): "${bountyEscrowProxy.address}"`);
+  console.log(`NEXT STEP: Update root '.env' with:`);
+  console.log(`NEXT_PUBLIC_MNEE_ADDRESS="${mnee.address}"`);
+  console.log(
+    `NEXT_PUBLIC_GUILD_REGISTRY_ADDRESS="${guildRegistryProxy.address}"`,
+  );
+  console.log(
+    `NEXT_PUBLIC_BOUNTY_ESCROW_ADDRESS="${bountyEscrowProxy.address}"`,
+  );
+  console.log(
+    `NEXT_PUBLIC_GUILD_GOVERNANCE_ADDRESS="${guildGovernanceProxy.address}"`,
+  );
 }
 
 main()

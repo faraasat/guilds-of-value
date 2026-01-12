@@ -1064,6 +1064,49 @@
       "artifacts": [
         "UUPSProxy"
       ]
+    },
+    "/Users/mapmac/DD/farasat-personal/mnee/packages/contracts/contracts/GuildGovernance.sol": {
+      "lastModificationDate": 1768036268389,
+      "contentHash": "38e5bca118eb7a87549a3a43242a4667",
+      "sourceName": "contracts/GuildGovernance.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol",
+        "./GuildRegistry.sol",
+        "./BountyEscrow.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "GuildGovernance"
+      ]
     }
   }
 }

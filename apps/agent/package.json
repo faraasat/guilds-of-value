@@ -8,9 +8,12 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@helia/unixfs": "^6.0.4",
     "@langchain/openai": "^0.0.14",
     "dotenv": "^16.4.1",
     "ethers": "^6.11.1",
+    "helia": "^6.0.14",
     "langchain": "^0.1.17",
     "viem": "^2.7.1"
   },
